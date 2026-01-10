@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { Server } from 'socket.io';
 import http from 'http';
 import sequelize from './models';
+import authRoutes from './routes/authRoutes';
 
 dotenv.config();
 
@@ -15,8 +16,13 @@ const io = new Server(server, {
   },
 });
 
-app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(cors());
+
+/* Routes */
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.send('NepXpress Backend Running');
