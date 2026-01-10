@@ -1,3 +1,4 @@
+import { sendEmail } from '../services/emailService';
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -20,6 +21,18 @@ export const register = async (req: Request, res: Response) => {
       password: hashedPassword,
       role: 'customer',
     });
+
+    await sendEmail(
+      email,
+      'Welcome to NepXpress',
+      `
+      <h2>Welcome to NepXpress 🚚</h2>
+      <p>Hello ${name},</p>
+      <p>Your account has been successfully created.</p>
+      <p>Thank you for choosing NepXpress.</p>
+      `
+    );
+
 
     res.status(201).json({ message: 'User registered successfully', user });
   } catch (error: any ) {
