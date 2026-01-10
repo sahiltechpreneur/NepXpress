@@ -5,6 +5,7 @@ import { Server } from 'socket.io';
 import http from 'http';
 import sequelize from './models';
 import authRoutes from './routes/authRoutes';
+import testRoutes from './routes/testRoutes';
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(cors());
 
 /* Routes */
 app.use('/api/auth', authRoutes);
+app.use('/api/test', testRoutes);
 
 app.get('/', (req, res) => {
   res.send('NepXpress Backend Running');
