@@ -1,7 +1,42 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../config/database';
 
-class Courier extends Model {}
+interface CourierAttributes {
+  id: string;
+  trackingNumber: string;
+  senderName: string;
+  senderPhone: string;
+  senderAddress: string;
+  receiverName: string;
+  receiverPhone: string;
+  receiverAddress: string;
+  status: 'pending' | 'picked' | 'in_transit' | 'delivered';
+  paymentStatus: 'unpaid' | 'paid';
+  userId: string;
+}
+
+interface CourierCreationAttributes
+  extends Optional<
+    CourierAttributes,
+    'id' | 'status' | 'paymentStatus'
+  > {}
+
+class Courier
+  extends Model<CourierAttributes, CourierCreationAttributes>
+  implements CourierAttributes
+{
+  public id!: string;
+  public trackingNumber!: string;
+  public senderName!: string;
+  public senderPhone!: string;
+  public senderAddress!: string;
+  public receiverName!: string;
+  public receiverPhone!: string;
+  public receiverAddress!: string;
+  public status!: 'pending' | 'picked' | 'in_transit' | 'delivered';
+  public paymentStatus!: 'unpaid' | 'paid';
+  public userId!: string;
+}
 
 Courier.init(
   {
@@ -12,8 +47,8 @@ Courier.init(
     },
     trackingNumber: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
+      unique: true,
     },
     senderName: {
       type: DataTypes.STRING,
@@ -52,11 +87,15 @@ Courier.init(
       type: DataTypes.ENUM('unpaid', 'paid'),
       defaultValue: 'unpaid',
     },
+    userId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
   },
   {
     sequelize,
-    modelName: 'Courier',
     tableName: 'couriers',
+    modelName: 'Courier',
   }
 );
 
