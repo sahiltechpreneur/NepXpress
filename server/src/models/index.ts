@@ -1,17 +1,14 @@
-import { Sequelize } from 'sequelize';
-import dotenv from 'dotenv';
-dotenv.config();
+import sequelize from '../config/database';
+import User from './User';
+import Courier from './Courier';
 
-const sequelize = new Sequelize(
-  process.env.DB_NAME!,
-  process.env.DB_USER!,
-  process.env.DB_PASSWORD!,
-  {
-    host: process.env.DB_HOST,
-    dialect: 'postgres',
-    port: Number(process.env.DB_PORT),
-    logging: false,
-  }
-);
+// Associations
+User.hasMany(Courier, {
+  foreignKey: 'userId',
+});
 
-export default sequelize;
+Courier.belongsTo(User, {
+  foreignKey: 'userId',
+});
+
+export { sequelize, User, Courier };

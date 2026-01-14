@@ -9,12 +9,15 @@
 - createdAt
 - updatedAt
 
-## Courier (Coming Next)
+## Courier
 - id (PK)
+- trackingNumber (unique)
 - senderName
+- senderPhone
+- senderAddress
 - receiverName
-- pickupAddress
-- deliveryAddress
+- receiverPhone
+- receiverAddress
 - status
 - paymentStatus
 - userId (FK)

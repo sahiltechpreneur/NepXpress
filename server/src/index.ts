@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { Server } from 'socket.io';
 import http from 'http';
-import sequelize from './models';
+import { sequelize } from './models';
 import authRoutes from './routes/authRoutes';
 import testRoutes from './routes/testRoutes';
 
@@ -46,3 +46,7 @@ server.listen(PORT, () => {
 sequelize.authenticate()
   .then(() => console.log('PostgreSQL connected'))
   .catch((err) => console.error('DB connection error:', err));
+
+sequelize.sync({ alter: true }).then(() => {
+  console.log('Database synced');
+});
