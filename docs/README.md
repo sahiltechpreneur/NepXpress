@@ -51,3 +51,11 @@ Payload:
 - URL: /admin/dashboard
 - Shows courier & payment stats
 - Download Excel and PDF reports
+
+## Authentication & Roles
+
+- JWT-based auth
+- Role-based route protection
+- Admin & Customer layouts
+- Login page: /login
+- JWT stored in localStorage
