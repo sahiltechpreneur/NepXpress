@@ -1,5 +1,6 @@
 'use client';
 
+import PaymentChart from '@/src/components/admin/PaymentChart';
 import { useEffect, useState } from 'react';
 
 interface Courier {
@@ -9,20 +10,38 @@ interface Courier {
 
 export default function AdminDashboard() {
   const [couriers, setCouriers] = useState<Courier[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  fetch('http://localhost:5000/api/couriers/admin/all', {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      setCouriers(data.couriers || data.data || []);
-    })
-    .catch(() => setCouriers([]));
-}, []);
+    const fetchCouriers = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/couriers/admin/all`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          }
+        );
 
+        const data = await res.json();
+
+        // handle different backend response shapes safely
+        setCouriers(data.couriers || data.data || []);
+      } catch (error) {
+        console.error('Failed to load couriers', error);
+        setCouriers([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCouriers();
+  }, []);
+
+  if (loading) {
+    return <p className="p-8">Loading dashboard...</p>;
+  }
 
   const total = couriers.length;
   const paid = couriers.filter((c) => c.paymentStatus === 'paid').length;
@@ -33,7 +52,7 @@ export default function AdminDashboard() {
       <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-white shadow rounded p-4">
           <p className="text-gray-500">Total Couriers</p>
           <p className="text-2xl font-bold">{total}</p>
@@ -50,13 +69,19 @@ export default function AdminDashboard() {
         </div>
       </div>
 
+      {/* Payment Chart */}
+      <div className="bg-white shadow rounded p-6 mb-8">
+        <h2 className="text-xl font-semibold mb-4">Payment Overview</h2>
+        <PaymentChart paid={paid} unpaid={unpaid} />
+      </div>
+
       {/* Reports */}
       <div className="bg-white shadow rounded p-6">
         <h2 className="text-xl font-semibold mb-4">Reports</h2>
 
         <div className="flex gap-4">
           <a
-            href="http://localhost:5000/api/reports/payments/excel"
+            href={`${process.env.NEXT_PUBLIC_API_URL}/api/reports/payments/excel`}
             target="_blank"
             className="bg-blue-600 text-white px-4 py-2 rounded"
           >
@@ -64,7 +89,7 @@ export default function AdminDashboard() {
           </a>
 
           <a
-            href="http://localhost:5000/api/reports/payments/pdf"
+            href={`${process.env.NEXT_PUBLIC_API_URL}/api/reports/payments/pdf`}
             target="_blank"
             className="bg-gray-800 text-white px-4 py-2 rounded"
           >

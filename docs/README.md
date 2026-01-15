@@ -59,3 +59,9 @@ Payload:
 - Admin & Customer layouts
 - Login page: /login
 - JWT stored in localStorage
+
+## Admin Dashboard
+- Stats cards
+- Payment charts
+- Excel/PDF export
+- Role protected
