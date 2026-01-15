@@ -38,3 +38,10 @@ Payload:
 - Payment Gateway: eSewa
 - Payment per courier
 - Status updated on success callback
+
+## Reports
+
+- Admin payment reports
+- Excel (.xlsx)
+- PDF (.pdf)
+- Secure admin-only access
