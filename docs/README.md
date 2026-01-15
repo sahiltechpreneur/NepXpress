@@ -32,3 +32,9 @@ Payload:
 - Public tracking page: /track
 - Track by tracking number
 - Real-time status updates using Socket.io
+
+## Payment System
+
+- Payment Gateway: eSewa
+- Payment per courier
+- Status updated on success callback
