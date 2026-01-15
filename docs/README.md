@@ -65,3 +65,7 @@ Payload:
 - Payment charts
 - Excel/PDF export
 - Role protected
+
+## Public Pages
+- Landing page
+- Navbar & Footer
