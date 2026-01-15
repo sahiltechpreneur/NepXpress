@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { getSocket } from '../socket';
+import { getSocket } from '../lib/socket';
+
 
 const CourierStatusListener = () => {
   useEffect(() => {
