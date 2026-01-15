@@ -4,6 +4,7 @@ import {
   getMyCouriers,
   getAllCouriers,
   updateCourierStatus,
+  trackCourier,
 } from '../controllers/CourierController';
 import { verifyToken } from '../middlewares/authMiddleware';
 import { adminMiddleware } from '../middlewares/adminMiddleware';
@@ -25,6 +26,8 @@ router.put(
   adminMiddleware,
   updateCourierStatus
 );
+
+router.get('/track/:trackingNumber', trackCourier);
 
 
 export default router;

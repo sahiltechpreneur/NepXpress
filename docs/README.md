@@ -26,3 +26,9 @@ Payload:
 - Socket.io client
 - Global listener via layout
 - Event: courier-status-updated
+
+## Courier Tracking
+
+- Public tracking page: /track
+- Track by tracking number
+- Real-time status updates using Socket.io

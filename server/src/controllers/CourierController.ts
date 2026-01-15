@@ -96,3 +96,21 @@ export const updateCourierStatus = async (
     res.status(500).json({ message: 'Status update failed' });
   }
 };
+
+export const trackCourier = async (req: Request, res: Response) => {
+  try {
+    const { trackingNumber } = req.params;
+
+    const courier = await Courier.findOne({
+      where: { trackingNumber },
+    });
+
+    if (!courier) {
+      return res.status(404).json({ message: 'Courier not found' });
+    }
+
+    res.json(courier);
+  } catch (error) {
+    res.status(500).json({ message: 'Tracking failed' });
+  }
+};
