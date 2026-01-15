@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Courier from '../models/Courier';
+import { getIO } from '../socket';
 
 export const createCourier = async (req: Request, res: Response) => {
   try {
@@ -80,6 +81,12 @@ export const updateCourierStatus = async (
 
     courier.status = status;
     await courier.save();
+
+    const io = getIO();
+    io.emit('courier-status-updated', {
+      courierId: courier.id,
+      status: courier.status,
+    });
 
     res.json({
       message: 'Courier status updated',

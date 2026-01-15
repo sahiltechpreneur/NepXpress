@@ -13,3 +13,10 @@ Courier Management System.
 - Authentication flow
 
 This documentation is maintained alongside the codebase.
+
+## Real-Time Events (Socket.io)
+
+Event: courier-status-updated  
+Payload:
+- courierId
+- status
