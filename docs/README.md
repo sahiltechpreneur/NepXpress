@@ -20,3 +20,9 @@ Event: courier-status-updated
 Payload:
 - courierId
 - status
+
+## Frontend Real-Time Integration
+
+- Socket.io client
+- Global listener via layout
+- Event: courier-status-updated
