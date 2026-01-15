@@ -45,3 +45,9 @@ Payload:
 - Excel (.xlsx)
 - PDF (.pdf)
 - Secure admin-only access
+
+## Admin Dashboard
+
+- URL: /admin/dashboard
+- Shows courier & payment stats
+- Download Excel and PDF reports
